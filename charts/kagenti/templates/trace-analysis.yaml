@@ -64,12 +64,12 @@ spec:
             - name: KEYCLOAK_REALM
               value: {{ .Values.keycloak.realm | quote }}
             - name: OIDC_REDIRECT_URI
-              value: "http://trace-analysis.{{ .Values.ui.domainName }}:8080/auth/callback"
+              value: "{{ .Values.traceAnalysis.auth.redirectScheme }}://trace-analysis.{{ .Values.ui.domainName }}{{- if .Values.traceAnalysis.auth.redirectPort }}:{{ .Values.traceAnalysis.auth.redirectPort }}{{- end }}/auth/callback"
             - name: SESSION_SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.traceAnalysis.auth.secretName | quote }}
-                  key: OIDC_CLIENT_SECRET
+                  key: TRACE_ANALYSIS_SESSION_SECRET_KEY
                   optional: true
             {{- end }}
           livenessProbe:

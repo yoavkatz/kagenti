@@ -489,6 +489,13 @@ traceAnalysis:
   auth:
     enabled: true
     secretName: mlflow-oauth-secret
+    # Scheme and port used to build OIDC_REDIRECT_URI for the authorization-code
+    # callback. Defaults match a Kind/local install (plain HTTP on port 8080).
+    # For TLS-terminated deployments (e.g. behind an HTTPRoute Gateway) set:
+    #   redirectScheme: https
+    #   redirectPort: ""   # omit port when using standard 443
+    redirectScheme: http
+    redirectPort: "8080"
   resources:
     requests:
       cpu: 50m

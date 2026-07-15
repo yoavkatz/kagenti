@@ -37,7 +37,7 @@ docker buildx version            # should now print: github.com/docker/buildx v0
 (Alternatively, add `"cliPluginsExtraDirs": ["/opt/homebrew/lib/docker/cli-plugins"]`
 to `~/.docker/config.json` — the symlink above does the same thing and persists.)
 
-## A. Enable the on a kind installation
+## A. Enable the feature on a kind installation
 
 ```bash
 
@@ -54,7 +54,6 @@ cd /path/to/kagenti-trace-analysis
 make TAG=latest build-load
 
 cd /path/to/kagenti
-make TAG=latest build-load-ui           
-
-
+make TAG=latest build-load-ui
+```
 

@@ -20,6 +20,7 @@ See: https://pypi.org/project/mlflow-oidc-auth/
 import base64
 import logging
 import os
+import secrets
 import sys
 import time
 from typing import Dict, Optional, Tuple
@@ -391,6 +392,11 @@ def main() -> None:
             "OIDC_SCOPE": "openid email profile",
             "OIDC_GROUPS_CLAIM": "groups",
             "DEFAULT_LANDING_PAGE_IS_PERMISSIONS": "false",
+            # Independent signing key for trace-analysis session cookies.
+            # Must not share the OAuth client secret — rotating one must not
+            # affect the other, and a leaked client secret must not allow
+            # session cookie forgery.
+            "TRACE_ANALYSIS_SESSION_SECRET_KEY": secrets.token_hex(32),
         }
 
         create_or_update_k8s_resource(
